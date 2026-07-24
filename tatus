@@ -1,0 +1,8 @@
+[33mcommit 0eb9e741ca91f71cce3500a5812d856dbad0d8d3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Tucci-net <batsquirrel13@gmail.com>
+Date:   Thu Jul 23 19:41:23 2026 -0700
+
+    Allow build scripts for Prisma, esbuild, sharp in pnpm config
+
+ pnpm-workspace.yaml | 7 [32m+++++++[m
+ 1 file changed, 7 insertions(+)
