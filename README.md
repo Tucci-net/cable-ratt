@@ -5,7 +5,7 @@
     <img alt="Cable Ratt logo" src="./assets/cable-ratt-logo-black.svg" width="280">
   </picture>
 
-  <p><strong>Enterprise dashboard for [one-line product description].</strong></p>
+  <p><strong>Enterprise dashboard for Tech Nerds looking to document and source data.</strong></p>
 
   <p>
     <img alt="Deployed on Vercel" src="https://img.shields.io/badge/deployed%20on-vercel-black?logo=vercel">
