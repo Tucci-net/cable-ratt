@@ -8,7 +8,6 @@
   <p><strong>Enterprise dashboard for [one-line product description].</strong></p>
 
   <p>
-    <img alt="Build" src="https://img.shields.io/github/actions/workflow/status/your-org/cable-ratt/ci.yml?branch=main">
     <img alt="Deployed on Vercel" src="https://img.shields.io/badge/deployed%20on-vercel-black?logo=vercel">
     <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript">
     <img alt="License" src="https://img.shields.io/badge/license-UNLICENSED-lightgrey">
@@ -19,7 +18,7 @@
 
 ## Overview
 
-Cable Ratt is a [SaaS product category] dashboard that helps [target user] do [core value prop]. Built for teams that need multi-tenant access, role-based permissions, and enterprise-grade reliability out of the box.
+Cable Ratt is an AV dashboard that would help AV programmers understand systems and signal flow better via product notation and documentation. Cable ratt acts as a tool to commune between such.  Built for teams that need multi-tenant access, role-based permissions, and enterprise-grade reliability out of the box.
 
 ## Tech Stack
 
@@ -42,7 +41,7 @@ Cable Ratt is a [SaaS product category] dashboard that helps [target user] do [c
 ### Prerequisites
 
 - Node.js ≥ 20
-- pnpm ≥ 9
+- pnpm ≥ 11
 - A `.env.local` file (see [Environment Variables](#environment-variables))
 
 ### Installation
