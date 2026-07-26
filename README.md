@@ -10,7 +10,6 @@
   <p>
     <img alt="Deployed on Vercel" src="https://img.shields.io/badge/deployed%20on-vercel-black?logo=vercel">
     <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript">
-    <img alt="License" src="https://img.shields.io/badge/license-UNLICENSED-lightgrey">
   </p>
 </div>
 
