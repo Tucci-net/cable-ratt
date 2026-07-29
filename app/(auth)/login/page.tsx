@@ -14,7 +14,7 @@ export default function LoginPage() {
           type="submit"
           className="rounded-md bg-black px-4 py-2 text-white hover:bg-neutral-800"
         >
-          Sign in with GitHub
+          Sign in via GitHub
         </button>
       </form>
     </main>

@@ -9,15 +9,25 @@ const config: Config = {
   theme: {
     extend: {
       keyframes: {
-        rainfall: {
-          "0%": { transform: "translateY(-10vh)", opacity: "0" },
-          "10%": { opacity: "1" },
-          "90%": { opacity: "1" },
-          "100%": { transform: "translateY(110vh)", opacity: "0" },
+        "cable-draw": {
+          "0%": { strokeDashoffset: "3000", opacity: "0" },
+          "8%": { opacity: "0.5" },
+          "15%": { opacity: "0.15" },
+          "25%": { opacity: "0.9" },
+          "40%": { opacity: "0.35" },
+          "55%": { opacity: "1" },
+          "80%": { strokeDashoffset: "0", opacity: "1" },
+          "92%": { opacity: "0.3" },
+          "100%": { strokeDashoffset: "0", opacity: "0" },
+        },
+        "content-in": {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       animation: {
-        rainfall: "rainfall linear infinite",
+        "cable-draw": "cable-draw linear infinite",
+        "content-in": "content-in ease-out forwards",
       },
     },
   },

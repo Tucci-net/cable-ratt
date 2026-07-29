@@ -5,3 +5,24 @@
 body {
   @apply bg-white text-black transition-colors duration-300 dark:bg-neutral-950 dark:text-white;
 }
+
+@keyframes cable-draw {
+  0% {
+    stroke-dashoffset: 3000;
+    opacity: 1;
+  }
+  60% {
+    stroke-dashoffset: 0;     
+    opacity: 0;              
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+.animate-cable-draw {
+  animation-name: cable-draw;
+  animation-timing-function: cubic-bezier(0.01, 0.1, 0.25, 0.5, 1); 
+  animation-fill-mode: forwards;
+}
