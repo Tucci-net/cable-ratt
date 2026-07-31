@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 const LANE_WIDTH = 90; // px — target spacing per cable
-const CABLES_PER_BATCH = 3; // (unused in your code, keep if you plan to use later)
 const BATCH_STAGGER_MS = 900;
 
 function pseudoRandom(seed: number) {
@@ -73,24 +72,25 @@ export function CableRain({
     };
   }, []);
 
-  if (!size) return null;
+if (!size) return null;
 
-  const count = Math.max(4, Math.floor(size.width / LANE_WIDTH));
-  const laneWidth = size.width / count;
-  const cables = Array.from({ length: count }, (_, i) =>
-    buildCable(i, laneWidth, size.height, startDelayMs)
-  );
+const drawableHeight = size.height - headerHeightPx;
+const count = Math.max(4, Math.floor(size.width / LANE_WIDTH));
+const laneWidth = size.width / count;
+const cables = Array.from({ length: count }, (_, i) =>
+  buildCable(i, laneWidth, drawableHeight, startDelayMs)
+);
 
-  return (
-    <div
-  className="pointer-events-none fixed inset-0 -z-10 overflow-hidden text-[#334155] dark:text-[ #3D4C5F]"
-  style={{ paddingTop: headerHeightPx }}>
-
-      <svg
-        className="h-full w-full"
-        viewBox={`0 0 ${size.width} ${size.height}`}
-        preserveAspectRatio="none"
-      >
+return (
+  <div
+    className="pointer-events-none fixed inset-0 -z-10 overflow-hidden text-[#334155] dark:text-[#3D4C5F]"
+    style={{ top: headerHeightPx }}
+  >
+    <svg
+      className="h-full w-full"
+      viewBox={`0 0 ${size.width} ${drawableHeight}`}
+      preserveAspectRatio="none"
+    >
         {cables.map((cable, i) => (
           <path
             key={i}

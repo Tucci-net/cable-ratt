@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { forwardRef } from "react";
 
-export const Header = forwardRef<HTMLElement, {}>(function Header(_, ref) {
+export const Header = forwardRef<HTMLElement, object>(function Header(_, ref) {
   return (
     <header
       ref={ref}

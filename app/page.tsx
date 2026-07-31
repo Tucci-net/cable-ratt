@@ -51,9 +51,9 @@ export default function HomePage() {
               animationDelay: `${CONTENT_STAGGER_MS}ms`,
             }}
           >
-            Welcome to Cable Ratt, the enterprise dashboard for managing your mental Ratt's nest. 
-            This is a demo application built with Next.js, Tailwind CSS, and TypeScript. 
-            Explore the dashboard to see how you can manage your Ratt's activities and keep track of their progress.
+            Welcome to Cable Ratt, the enterprise dashboard for managing your mental Ratt&apos;s nest.
+	    This is a demo application built with Next.js, Tailwind CSS, and TypeScript.
+	    Explore the dashboard to see how you can manage your Ratt&apos;s activities and keep track of their progress.
           </p>
 
           <Link
