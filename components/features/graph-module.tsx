@@ -24,15 +24,16 @@ export function GraphModule() {
 
     let delayTimer: ReturnType<typeof setTimeout> | null = null;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          delayTimer = setTimeout(() => setIsVisible(true), DRAW_DELAY_MS);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.3 }
-    );
+   const observer = new IntersectionObserver(
+  ([entry]) => {
+    if (!entry) return;
+    if (entry.isIntersecting) {
+      delayTimer = setTimeout(() => setIsVisible(true), DRAW_DELAY_MS);
+      observer.disconnect();
+    }
+  },
+  { threshold: 0.3 }
+);
 
     observer.observe(el);
     return () => {
