@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const LANE_WIDTH = 90; // px — target spacing per cable
+const LANE_WIDTH = 90; //cable jutt spacing
 const BATCH_STAGGER_MS = 900;
 
 function pseudoRandom(seed: number) {

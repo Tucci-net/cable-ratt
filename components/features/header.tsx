@@ -24,12 +24,6 @@ export const Header = forwardRef<HTMLElement, object>(function Header(_, ref) {
             Home
           </Link>
           <Link
-            href="/dashboard"
-            className="hover:text-black dark:hover:text-white"
-          >
-            Dashboard
-          </Link>
-          <Link
             href="/login"
             className="hover:text-black dark:hover:text-white"
           >
