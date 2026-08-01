@@ -1,5 +1,4 @@
-// This layout wraps all authenticated dashboard routes.
-// Add session checks / redirects here once auth is wired up.
+import { DashboardSidebar } from "@/components/features/dashboard-sidebar";
 
 export default function DashboardLayout({
   children,
@@ -7,9 +6,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      {/* <Sidebar /> <Topbar /> */}
-      <div>{children}</div>
+    <div className="flex min-h-screen">
+      <DashboardSidebar />
+      <div className="flex-1">{children}</div>
     </div>
   );
 }

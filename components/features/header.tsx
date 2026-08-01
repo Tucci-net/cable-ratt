@@ -20,9 +20,12 @@ export const Header = forwardRef<HTMLElement, object>(function Header(_, ref) {
           className="hidden h-8 dark:block"
         />
         <nav className="hidden items-center gap-6 text-sm text-neutral-600 dark:text-neutral-400 sm:flex">
-          <Link href="/" className="hover:text-black dark:hover:text-white">
-            Home
-          </Link>
+	<Link href="/" className="hover:text-black dark:hover:text-white">
+ 	 Home
+	</Link>
+	<Link href="/dashboard" className="hover:text-black dark:hover:text-white">
+  	Dashboard
+	</Link>
           <Link
             href="/login"
             className="hover:text-black dark:hover:text-white"

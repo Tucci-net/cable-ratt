@@ -5,9 +5,12 @@ export default {
   pages: {
     signIn: "/login",
   },
-  callbacks: {
-    authorized({ auth }) {
-      return !!auth?.user;
-    },
+callbacks: {
+  authorized() {
+    // Dashboard is intentionally open for design preview right now —
+    // there's no real per-user data behind it yet. Change this back to
+    // `!!auth?.user` once real data needs protecting.
+    return true;
   },
+},
 } satisfies NextAuthConfig;

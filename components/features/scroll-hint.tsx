@@ -7,7 +7,7 @@ export function ScrollHint() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 10000);
+    const timer = setTimeout(() => setVisible(true), 3500);
 
     function handleScroll() {
       if (window.scrollY > 10) {
