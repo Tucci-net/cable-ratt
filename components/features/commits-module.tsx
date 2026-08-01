@@ -30,16 +30,20 @@ function buildCommitsPath() {
     y: PADDING + (1 - d.count / maxValue) * (CHART_HEIGHT - PADDING * 2),
   }));
 
-  let line = `M ${points[0].x},${points[0].y}`;
+  const first = points[0]!;
+  const last = points[points.length - 1]!;
+
+  let line = `M ${first.x},${first.y}`;
   for (let i = 0; i < points.length - 1; i++) {
-    const midX = (points[i].x + points[i + 1].x) / 2;
-    const midY = (points[i].y + points[i + 1].y) / 2;
-    line += ` Q ${points[i].x},${points[i].y} ${midX},${midY}`;
+    const current = points[i]!;
+    const next = points[i + 1]!;
+    const midX = (current.x + next.x) / 2;
+    const midY = (current.y + next.y) / 2;
+    line += ` Q ${current.x},${current.y} ${midX},${midY}`;
   }
-  const last = points[points.length - 1];
   line += ` L ${last.x},${last.y}`;
 
-  const area = `${line} L ${last.x},${CHART_HEIGHT} L ${points[0].x},${CHART_HEIGHT} Z`;
+  const area = `${line} L ${last.x},${CHART_HEIGHT} L ${first.x},${CHART_HEIGHT} Z`;
 
   return { line, area, points };
 }
@@ -161,7 +165,7 @@ const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 ))}
      </svg>
 
-      {hoveredIndex !== null && (
+{hoveredIndex !== null && points[hoveredIndex] && WEEKLY_COMMITS[hoveredIndex] && (
         <div
           className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-full rounded-md bg-black px-2 py-1 text-xs whitespace-nowrap text-white dark:bg-white dark:text-black"
           style={{

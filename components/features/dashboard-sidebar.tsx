@@ -34,10 +34,10 @@ export function DashboardSidebar() {
 
   return (
     <aside className="hidden w-64 flex-col border-r border-neutral-200 bg-white px-4 py-6 dark:border-neutral-800 dark:bg-neutral-950 lg:flex">
-      <div className="mb-6 px-2">
+      <Link href="/" className="mb-6 px-2">
         <img src="/cable-ratt-logo-black.svg" alt="Cable Ratt" className="h-6 dark:hidden" />
         <img src="/cable-ratt-logo-white.svg" alt="Cable Ratt" className="hidden h-6 dark:block" />
-      </div>
+     </Link>
 
       <button className="mb-6 flex items-center gap-2 rounded-md border border-neutral-300 px-3 py-2 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-900">
         <MessageSquarePlus className="h-4 w-4" />
@@ -46,17 +46,6 @@ export function DashboardSidebar() {
 
       <NavGroup title="Features" links={FEATURE_LINKS} pathname={pathname} />
       <NavGroup title="Workspaces" links={WORKSPACE_LINKS} pathname={pathname} />
-
-      <div className="mt-auto rounded-lg border border-neutral-200 p-4 text-center dark:border-neutral-800">
-        <Sparkles className="mx-auto mb-2 h-5 w-5 text-neutral-500" />
-        <p className="mb-1 text-sm font-medium">Upgrade to Premium</p>
-        <p className="mb-3 text-xs text-neutral-500 dark:text-neutral-400">
-          Unlock advanced features built for growing teams.
-        </p>
-        <button className="w-full rounded-md bg-black px-3 py-2 text-xs text-white hover:bg-neutral-800 dark:bg-white dark:text-black dark:hover:bg-neutral-200">
-          Upgrade now
-        </button>
-      </div>
     </aside>
   );
 }
