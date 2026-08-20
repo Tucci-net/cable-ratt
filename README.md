@@ -42,7 +42,6 @@ Cable Ratt is an AV dashboard that would help AV programmers understand systems 
 
 - Node.js ≥ 20
 - pnpm ≥ 11
-- A `.env.local` file (see [Environment Variables](#environment-variables))
 
 ### Installation
 
@@ -106,7 +105,7 @@ See `.env.example` for the full list.
 ## Scripts
 
 | Command | Description |
-|---|---|
+
 | `pnpm dev` | Start local dev server |
 | `pnpm build` | Production build |
 | `pnpm lint` | Run ESLint |
