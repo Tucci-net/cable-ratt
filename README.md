@@ -35,7 +35,7 @@ Cable Ratt is an AV dashboard that would help AV programmers understand systems 
 | Auth | [Auth.js / Clerk / WorkOS] |
 | Charts | Tremor / Recharts |
 | Hosting | Vercel |
-| Testing | Vitest + Playwright |
+| Testing | Vitest |
 
 ## Getting Started
 
