@@ -134,7 +134,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for more detail.
 
 ## License
 
-[Choose a license — UNLICENSED / MIT / proprietary]
+[Proprietary]
 
 ---
 
