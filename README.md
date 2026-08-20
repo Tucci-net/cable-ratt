@@ -12,7 +12,8 @@
     <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript">
   </p>
 </div>
-![](https://github.com/Tucci-net/cable-ratt/blob/main/CableRatt.gif)
+
+![website gif](https://github.com/Tucci-net/cable-ratt/blob/main/CableRatt.gif)
 
 ---
 
