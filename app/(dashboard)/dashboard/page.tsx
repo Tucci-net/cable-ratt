@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   ArrowDownToLine,
@@ -69,7 +69,7 @@ type Project = {
 };
 type ProjectFilter = "all" | ProjectStatus;
 
-export default function DashboardHomePage() {
+function DashboardHomePageContent() {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("Overview");
   const [projectFilter, setProjectFilter] = useState<ProjectFilter>("all");
@@ -274,6 +274,14 @@ export default function DashboardHomePage() {
         />
       )}
     </div>
+  );
+}
+
+export default function DashboardHomePage() {
+  return (
+    <Suspense fallback={null}>
+      <DashboardHomePageContent />
+    </Suspense>
   );
 }
 
