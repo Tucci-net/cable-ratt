@@ -26,3 +26,29 @@ body {
   animation-timing-function: cubic-bezier(0.01, 0.1, 0.25, 0.5, 1); 
   animation-fill-mode: forwards;
 }
+
+.ratt-chase {
+  animation: ratt-chase 1.8s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+
+.ratt-cable-clip {
+  animation: ratt-cable-vanish 0.5s linear forwards;
+}
+
+@keyframes ratt-chase {
+  from {
+    transform: translateX(15px);
+  }
+  to {
+    transform: translateX(675px);
+  }
+}
+
+@keyframes ratt-cable-vanish {
+  from {
+    x: 0;
+  }
+  to {
+    x: 800px;
+  }
+}

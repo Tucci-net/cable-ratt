@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 
 const ACTION_MODULES = [
-  { label: "Prompts Today", value: 1249 },
-  { label: "AI Images", value: 318 },
+  { label: "Wires Pulled", value: 1249 },
+  { label: "Nodes Connected", value: 318 },
   { label: "Documents", value: 142 },
   { label: "Exports", value: 56 },
 ];
@@ -42,7 +42,7 @@ export function ActionsGaugeModule() {
 
   return (
     <div ref={containerRef} className="flex h-full flex-col">
-      <h3 className="mb-4 text-lg font-medium">Actions Made</h3>
+      <h3 className="mb-4 text-lg font-medium">Current OPTEMPO</h3>
 
       <div
         className={`relative flex flex-1 items-center justify-center transition-all duration-700 ease-out ${

@@ -19,15 +19,16 @@ const MONTHLY_TREND = "+18.6%";
 
 const CHART_WIDTH = 400;
 const CHART_HEIGHT = 140;
-const PADDING = 10;
+const HORIZONTAL_PADDING = 0;
+const VERTICAL_PADDING = 10;
 
 function buildCommitsPath() {
   const maxValue = Math.max(...WEEKLY_COMMITS.map((d) => d.count));
-  const stepX = (CHART_WIDTH - PADDING * 2) / (WEEKLY_COMMITS.length - 1);
+  const stepX = (CHART_WIDTH - HORIZONTAL_PADDING * 2) / (WEEKLY_COMMITS.length - 1);
 
   const points = WEEKLY_COMMITS.map((d, i) => ({
-    x: PADDING + i * stepX,
-    y: PADDING + (1 - d.count / maxValue) * (CHART_HEIGHT - PADDING * 2),
+    x: HORIZONTAL_PADDING + i * stepX,
+    y: VERTICAL_PADDING + (1 - d.count / maxValue) * (CHART_HEIGHT - VERTICAL_PADDING * 2),
   }));
 
   const first = points[0]!;
@@ -37,11 +38,14 @@ function buildCommitsPath() {
   for (let i = 0; i < points.length - 1; i++) {
     const current = points[i]!;
     const next = points[i + 1]!;
-    const midX = (current.x + next.x) / 2;
-    const midY = (current.y + next.y) / 2;
-    line += ` Q ${current.x},${current.y} ${midX},${midY}`;
+    const previous = points[i - 1] ?? current;
+    const following = points[i + 2] ?? next;
+    const firstControlX = current.x + (next.x - previous.x) / 6;
+    const firstControlY = current.y + (next.y - previous.y) / 6;
+    const secondControlX = next.x - (following.x - current.x) / 6;
+    const secondControlY = next.y - (following.y - current.y) / 6;
+    line += ` C ${firstControlX},${firstControlY} ${secondControlX},${secondControlY} ${next.x},${next.y}`;
   }
-  line += ` L ${last.x},${last.y}`;
 
   const area = `${line} L ${last.x},${CHART_HEIGHT} L ${first.x},${CHART_HEIGHT} Z`;
 
