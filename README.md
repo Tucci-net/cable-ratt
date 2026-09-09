@@ -13,6 +13,8 @@
   </p>
 </div>
 
+![website gif](https://github.com/Tucci-net/cable-ratt/blob/main/CableRatt.gif)
+
 ---
 
 ## Overview
@@ -33,7 +35,7 @@ Cable Ratt is an AV dashboard that would help AV programmers understand systems 
 | Auth | [Auth.js / Clerk / WorkOS] |
 | Charts | Tremor / Recharts |
 | Hosting | Vercel |
-| Testing | Vitest + Playwright |
+| Testing | Vitest |
 
 ## Getting Started
 
@@ -41,7 +43,6 @@ Cable Ratt is an AV dashboard that would help AV programmers understand systems 
 
 - Node.js ≥ 20
 - pnpm ≥ 11
-- A `.env.local` file (see [Environment Variables](#environment-variables))
 
 ### Installation
 
@@ -105,7 +106,7 @@ See `.env.example` for the full list.
 ## Scripts
 
 | Command | Description |
-|---|---|
+
 | `pnpm dev` | Start local dev server |
 | `pnpm build` | Production build |
 | `pnpm lint` | Run ESLint |
@@ -134,7 +135,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for more detail.
 
 ## License
 
-[Choose a license — UNLICENSED / MIT / proprietary]
+[Proprietary]
 
 ---
 
