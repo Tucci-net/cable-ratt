@@ -2,20 +2,28 @@
 
 import { ChangeEvent, Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import Image from "next/image";
 import {
   ArrowDownToLine,
+  Cable,
+  ChartNoAxesColumn,
   Check,
   Download,
   File,
+  Files,
   FolderPlus,
+  FolderKanban,
   Hand,
+  History as HistoryIcon,
   Maximize2,
   Minimize2,
   Move,
   MousePointer2,
   Pencil,
   Plus,
+  Presentation,
   RotateCcw,
+  Settings as SettingsIcon,
   Trash2,
   Upload,
   Waves,
@@ -34,14 +42,14 @@ const STATS = [
   { label: "Documents Managed", value: "142", trend: "+22.4%" },
 ];
 
-const TABS = [
-  "Overview",
-  "Workspace",
-  "Projects",
-  "History",
-  "Assets / Files",
-  "Presentations",
-  "Settings",
+const TABS: { label: string; icon: LucideIcon }[] = [
+  { label: "Overview", icon: ChartNoAxesColumn },
+  { label: "Workspace", icon: Cable },
+  { label: "Projects", icon: FolderKanban },
+  { label: "History", icon: HistoryIcon },
+  { label: "Assets / Files", icon: Files },
+  { label: "Presentations", icon: Presentation },
+  { label: "Settings", icon: SettingsIcon },
 ];
 
 const RATT_LIGHT_ICON_SRC = "/ratt-light.svg";
@@ -74,6 +82,11 @@ function DashboardHomePageContent() {
   const [activeTab, setActiveTab] = useState("Overview");
   const [projectFilter, setProjectFilter] = useState<ProjectFilter>("all");
   const [projectSearch, setProjectSearch] = useState("");
+  const [projectDialog, setProjectDialog] = useState<{
+    mode: "rename" | "delete";
+    project: Project;
+    name: string;
+  } | null>(null);
   const [workspaceWires, setWorkspaceWires] = useState<Wire[]>([
     {
       id: 1,
@@ -106,7 +119,9 @@ function DashboardHomePageContent() {
   useEffect(() => {
     const requestedTab = searchParams.get("tab");
     setActiveTab(
-      requestedTab && TABS.includes(requestedTab) ? requestedTab : "Overview",
+      requestedTab && TABS.some(({ label }) => label === requestedTab)
+        ? requestedTab
+        : "Overview",
     );
     const requestedFilter = searchParams.get("filter");
     setProjectFilter(
@@ -159,22 +174,40 @@ function DashboardHomePageContent() {
 
   function deleteProject(id: number) {
     const project = projects.find((item) => item.id === id);
-    if (!project || !window.confirm(`Delete ${project.name}?`)) return;
-    setProjects((current) => current.filter((item) => item.id !== id));
-    recordActivity(`Deleted ${project.name}`);
+    if (!project) return;
+    setProjectDialog({ mode: "delete", project, name: project.name });
   }
 
   function renameProject(id: number) {
     const project = projects.find((item) => item.id === id);
     if (!project) return;
-    const name = window.prompt("Project name", project.name)?.trim();
-    if (!name) return;
-    setProjects((current) =>
-      current.map((item) =>
-        item.id === id ? { ...item, name, updated: "Just now" } : item,
-      ),
-    );
-    recordActivity(`Renamed a project to ${name}`);
+    setProjectDialog({ mode: "rename", project, name: project.name });
+  }
+
+  function submitProjectDialog(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!projectDialog) return;
+
+    const { mode, project, name } = projectDialog;
+    if (mode === "delete") {
+      setProjects((current) =>
+        current.filter((item) => item.id !== project.id),
+      );
+      recordActivity(`Deleted ${project.name}`);
+    } else {
+      const trimmedName = name.trim();
+      if (!trimmedName) return;
+      setProjects((current) =>
+        current.map((item) =>
+          item.id === project.id
+            ? { ...item, name: trimmedName, updated: "Just now" }
+            : item,
+        ),
+      );
+      recordActivity(`Renamed a project to ${trimmedName}`);
+    }
+
+    setProjectDialog(null);
   }
 
   function addFiles(event: ChangeEvent<HTMLInputElement>) {
@@ -224,18 +257,23 @@ function DashboardHomePageContent() {
         ))}
       </div>
 
-      <nav className="flex gap-6 overflow-x-auto border-b border-neutral-200 px-6 text-sm dark:border-neutral-800">
-        {TABS.map((tab) => (
+      <nav
+        aria-label="Dashboard sections"
+        className="flex gap-3 overflow-x-auto border-b border-neutral-200 px-6 text-base dark:border-neutral-800 sm:gap-6"
+      >
+        {TABS.map(({ label, icon: Icon }) => (
           <button
-            key={tab}
-            onClick={() => selectTab(tab)}
-            className={`whitespace-nowrap border-b-2 py-3 ${
-              activeTab === tab
+            key={label}
+            onClick={() => selectTab(label)}
+            aria-current={activeTab === label ? "page" : undefined}
+            className={`flex items-center gap-2 whitespace-nowrap border-b-2 py-3 ${
+              activeTab === label
                 ? "border-black font-medium dark:border-white"
                 : "border-transparent text-neutral-500 hover:text-black dark:text-neutral-400 dark:hover:text-white"
             }`}
           >
-            {tab}
+            <Icon aria-hidden="true" className="h-4 w-4" />
+            {label}
           </button>
         ))}
       </nav>
@@ -272,6 +310,96 @@ function DashboardHomePageContent() {
           settings={workspaceSettings}
           onSettingsChange={setWorkspaceSettings}
         />
+      )}
+      {projectDialog && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setProjectDialog(null);
+          }}
+        >
+          <form
+            role={projectDialog.mode === "delete" ? "alertdialog" : "dialog"}
+            aria-modal="true"
+            aria-labelledby="project-dialog-title"
+            onSubmit={submitProjectDialog}
+            onKeyDown={(event) => {
+              if (event.key === "Escape") setProjectDialog(null);
+            }}
+            className="w-full max-w-md rounded-2xl border border-neutral-200 bg-white p-6 shadow-2xl dark:border-neutral-700 dark:bg-neutral-900"
+          >
+            <div className="mb-5 flex items-center justify-between">
+              <Image
+                src="/cable-ratt-logo-black.svg"
+                alt="Cable Ratt"
+                width={250}
+                height={47}
+                className="h-9 w-auto max-w-[190px] dark:hidden"
+              />
+              <Image
+                src="/cable-ratt-logo-white.svg"
+                alt="Cable Ratt"
+                width={250}
+                height={47}
+                className="hidden h-9 w-auto max-w-[190px] dark:block"
+              />
+              <button
+                type="button"
+                onClick={() => setProjectDialog(null)}
+                aria-label="Close dialog"
+                className="rounded-lg px-3 py-2 text-neutral-500 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              >
+                Close
+              </button>
+            </div>
+            <h2
+              id="project-dialog-title"
+              className="text-2xl font-semibold tracking-tight"
+            >
+              {projectDialog.mode === "delete"
+                ? "Delete project?"
+                : "Rename project"}
+            </h2>
+            <p className="mt-2 text-base text-neutral-600 dark:text-neutral-300">
+              {projectDialog.mode === "delete"
+                ? `This will remove “${projectDialog.project.name}” from this session.`
+                : "Choose a clear name for this project."}
+            </p>
+            {projectDialog.mode === "rename" && (
+              <label className="mt-5 block text-sm font-medium">
+                Project name
+                <input
+                  autoFocus
+                  value={projectDialog.name}
+                  onChange={(event) =>
+                    setProjectDialog({ ...projectDialog, name: event.target.value })
+                  }
+                  className="mt-2 w-full rounded-lg border border-neutral-300 bg-transparent px-3 py-2.5 text-base dark:border-neutral-700"
+                />
+              </label>
+            )}
+            <div className="mt-7 flex justify-end gap-3">
+              <button
+                autoFocus={projectDialog.mode === "delete"}
+                type="button"
+                onClick={() => setProjectDialog(null)}
+                className="rounded-lg border border-neutral-300 px-4 py-2.5 text-base hover:bg-neutral-100 dark:border-neutral-700 dark:hover:bg-neutral-800"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className={`rounded-lg px-4 py-2.5 text-base font-medium text-white ${
+                  projectDialog.mode === "delete"
+                    ? "bg-red-600 hover:bg-red-700"
+                    : "bg-neutral-900 hover:bg-neutral-700 dark:bg-white dark:text-black dark:hover:bg-neutral-200"
+                }`}
+              >
+                {projectDialog.mode === "delete" ? "Delete project" : "Save name"}
+              </button>
+            </div>
+          </form>
+        </div>
       )}
     </div>
   );
@@ -1018,7 +1146,7 @@ function Projects({
     <div className="p-6">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold">Projects</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
             Your workspace projects, stored locally for this mock.
           </p>
@@ -1094,7 +1222,7 @@ function Projects({
 function History({ entries }: { entries: string[] }) {
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold">Session history</h2>
+      <h2 className="text-2xl font-semibold tracking-tight">Session history</h2>
       <p className="mb-6 text-sm text-neutral-500 dark:text-neutral-400">
         A record of changes made during this session.
       </p>
@@ -1133,7 +1261,7 @@ function Assets({
     <div className="p-6">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold">Assets / Files</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Assets / Files</h2>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
             Add reference files to your workspace.
           </p>
@@ -1189,7 +1317,7 @@ function Settings({
     <div className="p-6">
       <Module>
         <div className="max-w-xl">
-          <h2 className="text-lg font-medium">Workspace settings</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Workspace settings</h2>
           <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
             Set the drawing canvas size and measurement units.
           </p>
@@ -1272,7 +1400,7 @@ function Presentations({
     <div className="grid gap-6 p-6 xl:grid-cols-2">
       <Module>
         <div className="mb-5">
-          <h2 className="text-xl font-semibold">Presentation builder</h2>
+          <h2 className="text-2xl font-semibold tracking-tight">Presentation builder</h2>
           <p className="text-sm text-neutral-500 dark:text-neutral-400">
             Write a YAML brief that combines your workspace line and attached
             assets.
@@ -1292,7 +1420,7 @@ function Presentations({
         </button>
       </Module>
       <Module>
-        <h2 className="mb-5 text-xl font-semibold">Shippable tool preview</h2>
+        <h2 className="mb-5 text-2xl font-semibold tracking-tight">Shippable tool preview</h2>
         {brief ? (
           <pre className="min-h-80 whitespace-pre-wrap rounded-md border border-neutral-200 bg-neutral-50 p-4 font-mono text-sm dark:border-neutral-800 dark:bg-neutral-950">
             {brief}

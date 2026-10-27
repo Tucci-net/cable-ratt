@@ -90,7 +90,7 @@ const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div ref={containerRef} className="flex h-full flex-col">
-      <h3 className="mb-4 text-lg font-medium">Commit Activity</h3>
+      <h3 className="mb-4 text-xl font-medium">Commit Activity</h3>
 
       <div className="mb-6 flex gap-8">
         <div>

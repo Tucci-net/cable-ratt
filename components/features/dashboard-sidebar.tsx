@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import {
   Archive,
@@ -37,8 +38,8 @@ export function DashboardSidebar() {
   return (
     <aside className="hidden w-64 flex-col border-r border-neutral-200 bg-white px-4 py-6 dark:border-neutral-800 dark:bg-neutral-950 lg:flex">
       <Link href="/" className="mb-6 px-2">
-        <img src="/cable-ratt-logo-black.svg" alt="Cable Ratt" className="h-6 dark:hidden" />
-        <img src="/cable-ratt-logo-white.svg" alt="Cable Ratt" className="hidden h-6 dark:block" />
+        <Image src="/cable-ratt-logo-black.svg" alt="Cable Ratt" width={250} height={47} className="h-9 w-auto max-w-[190px] dark:hidden" />
+        <Image src="/cable-ratt-logo-white.svg" alt="Cable Ratt" width={250} height={47} className="hidden h-9 w-auto max-w-[190px] dark:block" />
      </Link>
 
       <NavGroup title="Features" links={FEATURE_LINKS} activeHref={activeHref} />

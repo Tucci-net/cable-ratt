@@ -42,7 +42,7 @@ export function ActionsGaugeModule() {
 
   return (
     <div ref={containerRef} className="flex h-full flex-col">
-      <h3 className="mb-4 text-lg font-medium">Current OPTEMPO</h3>
+      <h3 className="mb-4 text-xl font-medium">Current OPTEMPO</h3>
 
       <div
         className={`relative flex flex-1 items-center justify-center transition-all duration-700 ease-out ${

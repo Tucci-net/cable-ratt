@@ -5,7 +5,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Cable Ratt",
-  description: "Enterprise dashboard for [product description]",
+  description:
+    "Manage projects, cable layouts, assets, and team activity in one workspace.",
 };
 
 export default function RootLayout({

@@ -44,7 +44,7 @@ export function GraphModule() {
 
   return (
     <div ref={containerRef} className="flex h-full flex-col">
-      <h3 className="mb-4 text-lg font-medium">Growth overview</h3>
+      <h3 className="mb-4 text-xl font-medium">Growth overview</h3>
       <svg 
 	viewBox="0 0 400 200"
 	preserveAspectRatio="none"
